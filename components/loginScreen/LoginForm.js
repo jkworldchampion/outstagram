@@ -1,6 +1,8 @@
 import React, { Component, useState } from 'react'
-import { Text, View, StyleSheet, Pressable, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, Pressable, TouchableOpacity, Alert, } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
+import { FIREBASE_AUTH } from '../../firebase';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { Formik } from 'formik'
 import * as Yup from 'yup'
@@ -13,6 +15,17 @@ const LoginForm = ({navigation}) => {
       .required()
       .min(6, 'Your password has to have at least 6 characters')
   })
+  
+  const auth = FIREBASE_AUTH;
+
+  const onLogin = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      console.log("🔥 Firebase Login Successful ✅", email, password)
+    } catch(error) {
+      Alert.alert(error.message)
+    }
+  }
 
   return (
     <View style={styles.wrapper}>
@@ -20,7 +33,7 @@ const LoginForm = ({navigation}) => {
       <Formik
         initialValues={{email: '', password: ''}}
         onSubmit={(values) => {
-          console.log(values)
+          onLogin(values.email, values.password)
         }}
         validationSchema={LoginFormSchema}
         validateOnMount={true}
