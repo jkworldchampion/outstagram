@@ -15,7 +15,7 @@ const LoginForm = ({navigation}) => {
       .required()
       .min(6, 'Your password has to have at least 6 characters')
   })
-  
+
   const auth = FIREBASE_AUTH;
 
   const onLogin = async (email, password) => {
@@ -23,7 +23,18 @@ const LoginForm = ({navigation}) => {
       await signInWithEmailAndPassword(auth, email, password)
       console.log("🔥 Firebase Login Successful ✅", email, password)
     } catch(error) {
-      Alert.alert(error.message)
+      Alert.alert(
+        '🔥 My Lord...',
+        error.message + '\n\n... What would you like to do next 👀',
+        [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK'),
+            style: 'cancel',
+          },
+          { text: 'Sign Up', onPress: () => navigation.push('SignupScreen')}
+        ]
+      )
     }
   }
 
