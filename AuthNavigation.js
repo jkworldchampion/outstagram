@@ -17,13 +17,13 @@ const AuthNavigation = () => {
       if (user) {
         userHandler(user)
       } else {
-
+        userHandler(user)
       }
     }),
     []
   )
   return <>{currentUser ? <SignedInStack /> : <SignedOutStack /> }</>
-  // return <SignedOutStack />
+
 }
 
 export default AuthNavigation

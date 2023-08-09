@@ -30,10 +30,10 @@ const SignupForm = ({ navigation }) => {
 
   const onSignup = async (email, password, username) => {
     try {
-      const authUser = await createUserWithEmailAndPassword(auth, email, password)
+      const authUser = await createUserWithEmailAndPassword(auth, email, password)  // Fire store에 email, password로 User를 만든다.
       console.log('🔥Firebase User Created Successful ✅', email, password)
-
-      addDoc(collection(db,'user'), {
+  
+      addDoc(collection(db, 'user'), {  // addDoc로 아이디 없이 바로 서브 쿼리 생성
         owner_uid: authUser.user.uid,
         username: username,
         email: authUser.user.email,

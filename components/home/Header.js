@@ -1,10 +1,23 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { FIREBASE_APP, FIREBASE_AUTH, FIRESTORE_DB } from '../../firebase'
+import { signOut } from "firebase/auth"
 
-function Header({navigation}) {
+const auth = FIREBASE_AUTH;
+const handleSignOut = async() => {
+  try {
+    await signOut(auth)
+    console.log('Signed Out Successfully!')
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+
+const Header = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleSignOut}>
         <Image style={styles.logo} source={require('../../assets/logo_white.png')}/>
       </TouchableOpacity>
 
@@ -21,7 +34,7 @@ function Header({navigation}) {
           <Image 
             source={{
               uri: 'https://img.icons8.com/fluency-systems-regular/60/000000/like--v1.png'
-            }} 
+            }}
             style={styles.icon}
           />
         </TouchableOpacity>
